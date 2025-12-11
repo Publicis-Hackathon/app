@@ -1,11 +1,16 @@
+import asyncio
 from collections import Counter
+import os
+import tempfile
 from typing import List, Tuple, Union
+from fastapi import UploadFile
 from numpy.typing import NDArray
 import numpy as np
 from PIL import Image
 from io import BytesIO
 from urllib.request import urlopen
 from urllib.parse import urlparse
+import requests
 from sklearn.cluster import KMeans
 
 from src.logger import get_logger
@@ -98,11 +103,27 @@ def is_url(s: str) -> bool:
     return parsed.scheme in ("http", "https") and parsed.netloc != ""
 
 
-def load_image(source: str):
-    logger.info(f"Loading image from source: {source}")
-    if is_url(source):
-        with urlopen(source) as response:
-            data = response.read()
-        return Image.open(BytesIO(data))
+async def download_image(url):
+    loop = asyncio.get_event_loop()
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.5",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Connection": "keep-alive",
+        "Referer": url,
+    }
+    response = await loop.run_in_executor(
+        None,
+        lambda: requests.get(url, headers=headers)
+    )
+    if response.status_code == 200:
+        temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".png")
+        temp_file.write(response.content)
+        temp_file.close()
+        return UploadFile(
+            filename=os.path.basename(temp_file.name),
+            file=open(temp_file.name, "rb")
+        )
     else:
-        return Image.open(source)
+        raise Exception(f"Failed to download image from {url}: {response}")
