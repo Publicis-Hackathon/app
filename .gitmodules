@@ -1,7 +1,8 @@
-[submodule "backend"]
-	path = backend
-	url = https://github.com/Publicis-Hackathon/hackathon-fibo.git
+
 
 [submodule "frontend"]
     path = lovable-frontend
     url = https://github.com/Publicis-Hackathon/lovable-frontend.git
+[submodule "backend"]
+	path = backend
+	url = https://github.com/Publicis-Hackathon/hackathon-fibo.git
