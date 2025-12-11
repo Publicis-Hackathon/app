@@ -1,0 +1,45 @@
+networks:
+  net:
+    external: true
+    name: net
+    
+
+services:
+  frontend:
+    build: ./lovable-frontend
+    container_name:  "${FRONTEND_CONTAINER}"
+    environment:
+      DEBIAN_FRONTEND: noninteractive
+      LANG: en_US.UTF-8
+    env_file:
+      - .env
+    ports:
+      - "${FRONTEND_PORT}:${FRONTEND_PORT}"
+      - "${FRONTEND_DEBUGGER_PORT}:${FRONTEND_DEBUGGER_PORT}"  # Debugger port
+    volumes:
+      - ./lovable-frontend/:/app # uncomment for dev
+    networks:
+      - net
+  
+  backend:
+    build: ./backend
+    container_name:  "${BACKEND_CONTAINER}"
+    environment:
+      DEBIAN_FRONTEND: noninteractive
+      LANG: en_US.UTF-8
+    env_file:
+      - .env
+    ports:
+      - "${BACKEND_PORT}:${BACKEND_PORT}"
+      - "${BACKEND_DEBUGGER_PORT}:${BACKEND_DEBUGGER_PORT}"  # Debugger port
+    volumes:
+      - ./backend:/app  # uncomment for dev
+    networks:
+      - net
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]

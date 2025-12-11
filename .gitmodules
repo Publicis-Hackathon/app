@@ -1,0 +1,11 @@
+[submodule "backend"]
+	path = backend
+	url = https://github.com/Publicis-Hackathon/hackathon-fibo.git
+
+[submodule "frontend"]
+    path = lovable-frontend
+    url = https://github.com/Publicis-Hackathon/lovable-frontend.git
+
+[submodule "sam3"]
+    path = backend/sam3
+    url = https://github.com/facebookresearch/sam3.git
