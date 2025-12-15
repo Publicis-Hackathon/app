@@ -8,7 +8,7 @@ Two cooperating agents turn brand constraints into polished creative assets gene
 - **Improve** – When the report fails, FIBO runs the Color Palette LoRA pass to inject missing colors and align gaze before returning to evaluation (`backend/agentic/agents.py:102`).
 - **Explainability** – Each cycle updates the timeline plus a reasoning bundle available through `AgenticWorkflow.get_reasoning`.
 
-![FIBO loop diagram](images/diagram.png)
+![FIBO loop diagram](diagram.png)
 
 ## Repository layout
 - `backend/` – Python package containing the agents, workflow graph, structured prompt helpers, and example payloads.
