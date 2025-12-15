@@ -36,6 +36,8 @@ services:
       - "${BACKEND_DEBUGGER_PORT}:${BACKEND_DEBUGGER_PORT}"  # Debugger port
     volumes:
       - ./backend:/app  # uncomment for dev
+      - "${LORA_PATH}:/color_palette_results/checkpoint_final"  # Mount LoRA weights
+
     networks:
       - net
     deploy:
