@@ -18,6 +18,7 @@ services:
       - "${FRONTEND_DEBUGGER_PORT}:${FRONTEND_DEBUGGER_PORT}"  # Debugger port
     volumes:
       - ./lovable-frontend/:/app # uncomment for dev
+      - /app/node_modules           # preserves installed deps inside container
     networks:
       - net
   
@@ -30,7 +31,7 @@ services:
     env_file:
       - .env
     ports:
-      - "${BACKEND_PORT}:${BACKEND_PORT}"
+      - "${VITE_BACKEND_PORT}:${VITE_BACKEND_PORT}"
       - "${BACKEND_DEBUGGER_PORT}:${BACKEND_DEBUGGER_PORT}"  # Debugger port
     volumes:
       - ./backend:/app  # uncomment for dev
