@@ -18,7 +18,8 @@ services:
       - "${FRONTEND_DEBUGGER_PORT}:${FRONTEND_DEBUGGER_PORT}"  # Debugger port
     volumes:
       - ./lovable-frontend/:/app # uncomment for dev
-      - /app/node_modules           # preserves installed deps inside container
+      - /app/node_modules
+
     networks:
       - net
   
