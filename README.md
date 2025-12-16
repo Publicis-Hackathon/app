@@ -1,6 +1,10 @@
 # FIBO Brand Studio – JSON‑Native Agentic Workflow
 
+<div align="center">
+
 [![Watch the video](https://img.youtube.com/vi/IerwvpGiVmA/0.jpg)](https://youtu.be/IerwvpGiVmA)
+
+</div>
 
 An agentic FastAPI backend and Lovable/Vite frontend that turn brand briefs (plus optional reference images) into structured JSON, use that JSON to drive the FIBO model and LoRA color controls, and automatically check each image for on‑brand color palette and gaze before showing it to the user.
 
